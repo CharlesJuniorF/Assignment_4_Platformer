@@ -8,7 +8,11 @@ public class FollowCam : MonoBehaviour
     public float speed = 3.0f;
     public float zDistance = 10.0f;
     public float allowableOffset = 3.0f;
-    public GameObject player;
+
+    public Vector2 topLeft;
+    public Vector2 bottomRight;
+    
+    private GameObject player;
 
     // Improvements to consider:
     // - Easing movement at start and end
@@ -29,5 +33,29 @@ public class FollowCam : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position + Vector3.back * zDistance, speed * Time.deltaTime);
         }
+
+        Vector3 pos = transform.position;
+
+        if (pos.x < topLeft.x)
+        {
+            pos.x = topLeft.x;
+        } 
+        else if (pos.x > bottomRight.x)
+        {
+            pos.x = bottomRight.x;
+        }
+
+        if (pos.y > topLeft.y)
+        {
+            pos.y = topLeft.y;
+        }
+        else if (pos.y < bottomRight.y)
+        {
+            pos.y = bottomRight.y;
+        }
+
+        pos.z = player.transform.position.z - zDistance;
+
+        transform.position = pos;
     }
 }
