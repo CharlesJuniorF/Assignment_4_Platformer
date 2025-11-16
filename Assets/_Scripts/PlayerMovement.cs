@@ -13,15 +13,23 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private const float gravity = 2.0f;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    private bool idle, walking, jumping;
 
     // Improvements to consider:
     // - Double jump
-    // - Easing into movement (accelerating more slowly)
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravity;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        idle = false;
+        walking = false;
+        jumping = false;
     }
 
     // Update is called once per frame
@@ -37,36 +45,72 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
+            spriteRenderer.flipX = true;
             vel.x -= deltaSpeed * Time.deltaTime;
 
             if (vel.x < -speed)
             {
                 vel.x = -speed;
             }
+
+            if (!walking)
+            {
+                animator.Play("Walk");
+                walking = true;
+            }
+            idle = false;
+            jumping = false;
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
+            spriteRenderer.flipX = false;
             vel.x += deltaSpeed * Time.deltaTime;
             if (vel.x > speed)
             {
                 vel.x = speed;
             }
+            if (!walking)
+            {
+                animator.Play("Walk");
+                walking = true;
+            }
+            idle = false;
+            jumping = false;
         }
         else
         {
             vel.x = 0;
+            if (!idle && IsGrounded())
+            {
+                animator.Play("Idle");
+                idle = true;
+            }
+
+            walking = false;
+            jumping = false;
         }
         rb.velocity = vel;
+        Debug.Log(vel.y > 0);
 
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            if (!jumping && vel.y > 0)
+            {
+                animator.Play("Jump");
+                jumping = true;
+            }
+
+            idle = false;
+            walking = false;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.transform.CompareTag("Ground")) animator.Play("Idle");
+
         if (collision.transform.CompareTag("Enemy"))
         {
             //take a life 
