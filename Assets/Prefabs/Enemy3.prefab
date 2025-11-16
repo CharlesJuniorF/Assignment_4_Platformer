@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 8378390245406775816}
   - component: {fileID: 4313703218253342935}
   - component: {fileID: 1359266701485476948}
+  - component: {fileID: 8640864067532811571}
   m_Layer: 0
   m_Name: Flyer
   m_TagString: Enemy
@@ -369,3 +370,24 @@ MonoBehaviour:
   moving: 1
   minDistance: 0.01
   speed: 2
+--- !u!95 &8640864067532811571
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7060861526173883828}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c36031b31707704499d9535c212afee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
