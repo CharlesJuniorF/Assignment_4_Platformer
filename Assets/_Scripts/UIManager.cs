@@ -9,10 +9,12 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreBoard;
     public GameObject[] livesCount;
     public GameObject gameOverSceen;
+    public GameObject levelCompleteScreen;
 
     private void Start()
     {
         gameOverSceen.SetActive(false);
+        levelCompleteScreen.SetActive(false);
     }
 
     // Update is called once per frame
