@@ -90,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
             jumping = false;
         }
         rb.velocity = vel;
-        Debug.Log(vel.y > 0);
 
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
