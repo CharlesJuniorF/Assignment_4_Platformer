@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 12.0f;
     public float bumpForce = 3.0f;
     public BoxCollider2D groundCollider;
+    public AudioSource hitByEnemy;
+    public AudioSource hitTheEnemy;
+    public AudioSource jump;
 
     private Rigidbody2D rb;
     private const float gravity = 2.0f;
@@ -95,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            jump.Play();
             if (!jumping && vel.y > 0)
             {
                 animator.Play("Jump");
@@ -124,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
             forceVector.y += 0.5f;
 
             rb.AddForce(forceVector * bumpForce, ForceMode2D.Impulse);
+            hitByEnemy.Play();
         }
     }
 
@@ -134,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
             //add points for the enemy
             GameManager.score += 100;
 
+            hitTheEnemy.Play();
             //destroy the enemy
             Destroy(collision.gameObject);
         }

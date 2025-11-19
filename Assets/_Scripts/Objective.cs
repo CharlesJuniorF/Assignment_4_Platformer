@@ -6,6 +6,7 @@ public class Objective : MonoBehaviour
 {
     public Sprite ObjectiveCompleteSprite;
     public GameObject levelCompleteScreen;
+    public AudioSource upFlag;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,6 +16,7 @@ public class Objective : MonoBehaviour
         sr.sprite = ObjectiveCompleteSprite;
 
         //play some music/sound
+        upFlag.Play();
 
         //pop up the level complete screen
         levelCompleteScreen.SetActive(true);

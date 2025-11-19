@@ -10,6 +10,8 @@ public class Button : MonoBehaviour
     public Mover triggerobject;
 
     public Sprite PressedSprite;
+
+    public AudioSource buttonPress;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,6 +19,8 @@ public class Button : MonoBehaviour
         {
             triggerobject.moving = true;
             SpriteRenderer spriteR = GetComponent<SpriteRenderer>();
+
+            buttonPress.Play();
 
             spriteR.sprite = PressedSprite;
         }
